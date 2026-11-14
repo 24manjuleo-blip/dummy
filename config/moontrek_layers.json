@@ -1,0 +1,26 @@
+{
+  "source": "NASA Moon Trek WMTS GetCapabilities",
+  "verified_capabilities_url": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml",
+  "sample_only": true,
+  "layers": [
+    {
+      "id": "LRO_WAC_Mosaic_Global_303ppd_v02",
+      "title": "LRO WAC Mosaic Global 303ppd v02",
+      "style": "default",
+      "tile_matrix_set": "default028mm",
+      "crs": "urn:ogc:def:crs:EPSG::104903",
+      "bounds_lon_lat": [-180, -90, 180, 90],
+      "format": "image/jpeg",
+      "extension": "jpg",
+      "tile_size": [256, 256],
+      "matrix_ids": ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+    }
+  ],
+  "tile_url_policy": "No tile URL template is stored here. Fetch the configured live GetCapabilities document and use its WMTS ResourceURL template for the selected layer.",
+  "projection_crs_identifiers": {
+    "equirectangular": "urn:ogc:def:crs:EPSG::104903",
+    "north_pole": "urn:ogc:def:crs:IAU2000::30118",
+    "south_pole": "urn:ogc:def:crs:IAU2000::30120"
+  },
+  "caveat": "North/south polar CRS identifiers are catalog identifiers only; do not construct a tile URL until an actual product's capabilities have been fetched and parsed."
+}

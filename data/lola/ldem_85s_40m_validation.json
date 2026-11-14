@@ -1,0 +1,62 @@
+{
+  "status": "LABEL_AND_IMG_VALIDATED",
+  "product": "LDEM_85S_40M",
+  "dataset_id": "LRO-L-LOLA-4-GDR-V1.0",
+  "image": "data/lola/ldem_85s_40m.img",
+  "image_size_bytes": 115034112,
+  "image_sha256": "1609e9b860748e0b9952a7239c51b37d3b2a799d35e9fc3c258526711cc1e51d",
+  "label": "data/lola/ldem_85s_40m.lbl",
+  "label_sha256": "d8105776af7fb79b1862ffa3946d013ec34f4dc6a00b7f6bff22ef8f768a5d3d",
+  "pds4_label": "data/lola/ldem_85s_40m.xml",
+  "pds4_label_sha256": "e246e7bcb6773a6a114d0fb17760655e64b46a8b4afc15ea67eb98c5820e58ff",
+  "pds4_metadata": {
+    "logical_identifier": "urn:nasa:pds:lro_lola_rdr:data_gridded:ldem_85s_40m",
+    "scaling_factor": "0.5",
+    "value_offset_m": "1737400",
+    "body_fixed_frame": "MEAN EARTH/POLAR AXIS OF DE421",
+    "dimensions": [
+      [
+        "Line",
+        "7584"
+      ],
+      [
+        "Sample",
+        "7584"
+      ]
+    ]
+  },
+  "dimensions": [
+    7584,
+    7584
+  ],
+  "sample": "signed little-endian int16",
+  "raw_minmax_dn": [
+    -11002,
+    14054
+  ],
+  "height_minmax_m_relative_to_reference_sphere": [
+    -5501.0,
+    7027.0
+  ],
+  "height_scale_m_per_dn": 0.5,
+  "height_formula": "HEIGHT_m = DN * 0.5; do NOT add OFFSET for height",
+  "planetary_radius_formula": "PLANETARY_RADIUS_m = DN * 0.5 + 1,737,400",
+  "vertical_reference": "relative to a 1,737,400 m reference sphere; not geoid-corrected topography",
+  "projection": "polar stereographic, spherical Moon; 40 m/pixel; planetocentric latitude; 85S to 90S",
+  "body_fixed_frame": "MEAN EARTH/POLAR AXIS OF DE421",
+  "output_geotiff": "data/lola/ldem_85s_40m_height.tif",
+  "output_sha256": "107eec2bfd1cd5c127320fe05e5ee5175cdb13cd94ed98ea68b396f18a63abca",
+  "geotiff": {
+    "crs_wkt": "PROJCS[\"unknown\",GEOGCS[\"unknown\",DATUM[\"unknown\",SPHEROID[\"unknown\",1737400,0]],PRIMEM[\"Reference meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+    "resolution_m": [
+      40.0,
+      40.0
+    ],
+    "bounds_m": [
+      -151680.0,
+      -151680.0,
+      151680.0,
+      151680.0
+    ]
+  }
+}

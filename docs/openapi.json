@@ -1,0 +1,431 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Lunar Landing Site Navigator API",
+    "description": "NASA-backed lunar ephemeris and DEM-terrain analysis. Terrain remains unavailable until an approved lunar-frame DEM is configured.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nasa/resources": {
+      "get": {
+        "summary": "Nasa Resources",
+        "operationId": "nasa_resources_api_v1_nasa_resources_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nasa/moontrek/layers": {
+      "get": {
+        "summary": "Moontrek Layers",
+        "operationId": "moontrek_layers_api_v1_nasa_moontrek_layers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nasa/horizons/ephemeris": {
+      "post": {
+        "summary": "Horizons",
+        "operationId": "horizons_api_v1_nasa_horizons_ephemeris_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EphemerisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/terrain/horizon": {
+      "post": {
+        "summary": "Terrain",
+        "operationId": "terrain_api_v1_terrain_horizon_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorizonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analysis/site-visibility": {
+      "post": {
+        "summary": "Visibility",
+        "operationId": "visibility_api_v1_analysis_site_visibility_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VisibilityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analysis/site-comparison": {
+      "post": {
+        "summary": "Compare",
+        "operationId": "compare_api_v1_analysis_site_comparison_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompareRequest": {
+        "properties": {
+          "sites": {
+            "items": {
+              "$ref": "#/components/schemas/EphemerisRequest"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 2,
+            "title": "Sites"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sites"
+        ],
+        "title": "CompareRequest"
+      },
+      "EphemerisRequest": {
+        "properties": {
+          "latitude_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude Deg"
+          },
+          "longitude_deg": {
+            "type": "number",
+            "maximum": 360.0,
+            "minimum": -180.0,
+            "title": "Longitude Deg"
+          },
+          "altitude_m": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": -12000.0,
+            "title": "Altitude M",
+            "default": 0
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "targets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Targets",
+            "description": "Horizons body IDs; 10=Sun, 399=Earth"
+          },
+          "start_utc": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Utc"
+          },
+          "stop_utc": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Stop Utc"
+          },
+          "step_minutes": {
+            "type": "integer",
+            "maximum": 1440.0,
+            "minimum": 1.0,
+            "title": "Step Minutes",
+            "default": 60
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "latitude_deg",
+          "longitude_deg",
+          "start_utc",
+          "stop_utc"
+        ],
+        "title": "EphemerisRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HorizonRequest": {
+        "properties": {
+          "latitude_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude Deg"
+          },
+          "longitude_deg": {
+            "type": "number",
+            "maximum": 360.0,
+            "minimum": -180.0,
+            "title": "Longitude Deg"
+          },
+          "altitude_m": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": -12000.0,
+            "title": "Altitude M",
+            "default": 0
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "azimuth_step_deg": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Azimuth Step Deg",
+            "default": 1
+          },
+          "max_distance_m": {
+            "type": "integer",
+            "maximum": 500000.0,
+            "minimum": 100.0,
+            "title": "Max Distance M",
+            "default": 50000
+          },
+          "mast_height_m": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Mast Height M",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "latitude_deg",
+          "longitude_deg"
+        ],
+        "title": "HorizonRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VisibilityRequest": {
+        "properties": {
+          "ephemeris": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ephemeris"
+          },
+          "horizon": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Horizon"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ephemeris",
+          "horizon"
+        ],
+        "title": "VisibilityRequest"
+      }
+    }
+  }
+}

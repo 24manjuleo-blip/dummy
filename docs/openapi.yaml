@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  title: Lunar Landing Site Navigator API
+  version: 0.1.0
+  description: Live JPL Horizons ephemeris plus optional user-supplied DEM terrain analysis. Runtime /openapi.json is authoritative.
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/health:
+    get: {summary: Health and DEM configuration}
+  /api/v1/nasa/resources:
+    get: {summary: NASA resource links and provenance}
+  /api/v1/nasa/moontrek/layers:
+    get: {summary: Fetch and parse verified sample Moon Trek WMTS capabilities}
+  /api/v1/nasa/horizons/ephemeris:
+    post: {summary: Retrieve live JPL Horizons observer ephemeris}
+  /api/v1/terrain/horizon:
+    post: {summary: Compute horizon from a georeferenced DEM}
+  /api/v1/analysis/site-visibility:
+    post: {summary: Compare ephemeris with terrain horizon and estimate crossings}
+  /api/v1/analysis/site-comparison:
+    post: {summary: Live multi-site comparison using configured DEM}

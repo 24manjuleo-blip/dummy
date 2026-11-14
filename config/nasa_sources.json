@@ -1,0 +1,6 @@
+{
+  "horizons": {"url":"https://ssd.jpl.nasa.gov/api/horizons.api","type":"ephemeris API","live_verified":true,"target_ids":{"Sun":"10","Earth":"399","Moon center":"301"}},
+  "lola_pds": {"url":"https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/","type":"PDS archive; ordinary file downloads","dataset_id":"LRO-L-LOLA-4-GDR-V1.0","live_verified":true,"label_required":true},
+  "pgda": {"url":"https://pgda.gsfc.nasa.gov/","type":"dataset catalog and static file links","verified_products":{"54":"SLDEM2015","69":"Lunar Polar Illumination","95":"LOLA MOON_PA gridded dataset"}},
+  "quickmap": {"url":"https://quickmap.lroc.asu.edu/","iframe_allowed":false,"reason":"live response X-Frame-Options: sameorigin and CSP frame-ancestors 'self'","external_launch":true}
+}
