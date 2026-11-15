@@ -103,8 +103,15 @@ def compute_horizon(lat_deg, lon_deg, altitude_m=0, azimuth_step_deg=1, max_dist
                 lon2 = math.radians(lon_deg) + math.atan2(math.sin(math.radians(az)) * math.sin(angular) * math.cos(math.radians(lat_deg)), math.cos(angular) - math.sin(math.radians(lat_deg)) * math.sin(lat2))
                 lon2_deg = ((math.degrees(lon2) + 180) % 360) - 180
                 z = sample(math.degrees(lat2), lon2_deg, az, distance)
-                # Approximate spherical lunar-curvature drop, using elevation relative to the reference sphere.
-                angle = math.degrees(math.atan2(z - site, distance)) - math.degrees(distance / (2 * lunar_radius_m))
+
+                # Exact spherical line-of-sight elevation relative to the observer's local horizontal.
+                observer_radius = lunar_radius_m + site
+                terrain_radius = lunar_radius_m + z
+
+                angle = math.degrees(math.atan2(
+                    terrain_radius * math.cos(angular) - observer_radius,
+                    terrain_radius * math.sin(angular)
+                ))
                 best = max(best, angle)
             if not math.isfinite(best):
                 raise IncompleteDEMCoverage(f"DEM returned no finite horizon at azimuth {az}°")

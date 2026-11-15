@@ -64,11 +64,22 @@ def test_dem_path_requires_allowlisted_root(tmp_path):
     with pytest.raises(TerrainUnavailable, match='outside'):
         resolve_approved_dem(str(outside),str(approved))
 
-def test_api_rejects_client_dem_path_and_reports_terrain_unavailable():
+def test_api_rejects_client_dem_path_and_reports_terrain_unavailable(monkeypatch):
     from fastapi.testclient import TestClient
-    from app.main import app
-    client=TestClient(app)
-    response=client.post('/api/v1/terrain/horizon',json={'latitude_deg':-89.9,'longitude_deg':0,'dem_path':'/etc/passwd'})
-    assert response.status_code==422
-    unavailable=client.post('/api/v1/terrain/horizon',json={'latitude_deg':-89.9,'longitude_deg':0})
-    assert unavailable.status_code==503
+    import app.main as main
+
+    monkeypatch.setattr(main.settings, "dem_path", None)
+    monkeypatch.setattr(main.settings, "dem_root", None)
+    client = TestClient(main.app)
+
+    response = client.post(
+        "/api/v1/terrain/horizon",
+        json={"latitude_deg": -89.9, "longitude_deg": 0, "dem_path": "/etc/passwd"},
+    )
+    assert response.status_code == 422
+
+    unavailable = client.post(
+        "/api/v1/terrain/horizon",
+        json={"latitude_deg": -89.9, "longitude_deg": 0},
+    )
+    assert unavailable.status_code == 503
